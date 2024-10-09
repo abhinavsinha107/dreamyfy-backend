@@ -92,8 +92,6 @@ export const createOnboardingSession = async (req: Request, res: Response) => {
       await user.save(); // Save the updated user document
     }
 
-    console.log(user.stripe_id); // Should now log the updated stripe_id
-
     // Create an account link for onboarding
     const accountLink = await stripe.accountLinks.create({
       account: account.id,
@@ -147,7 +145,7 @@ export const handleStripeWebhook = async (req, res): Promise<void> => {
         } catch (updateError) {
           //@ts-ignore
           console.error(
-            `Failed to update enrolled courses: ${updateError.message}`
+            `Failed to update enrolled courses}`
           );
           //@ts-ignore
           res.status(500).send(`Webhook Error: ${updateError.message}`);
